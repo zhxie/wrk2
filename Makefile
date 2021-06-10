@@ -68,3 +68,6 @@ $(LDIR)/libluajit.a:
 vpath %.c   src
 vpath %.h   src
 vpath %.lua scripts
+
+install:
+	cp wrk /usr/local/bin

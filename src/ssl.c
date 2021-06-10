@@ -49,10 +49,9 @@ SSL_CTX *ssl_init() {
     return ctx;
 }
 
-status ssl_connect(connection *c, char *host) {
+status ssl_connect(connection *c) {
     int r;
     SSL_set_fd(c->ssl, c->fd);
-    SSL_set_tlsext_host_name(c->ssl, host);
     if ((r = SSL_connect(c->ssl)) != 1) {
         switch (SSL_get_error(c->ssl, r)) {
             case SSL_ERROR_WANT_READ:  return RETRY;

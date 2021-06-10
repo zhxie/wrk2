@@ -1,5 +1,27 @@
 # wrk2
-[![Build Status](https://travis-ci.com/giltene/wrk2.svg?branch=master)](https://travis-ci.com/giltene/wrk2) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/giltene/wrk2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+  **Modifications made by Shuang**
+
+  wrk and wrk2 are both close-loop load generators; a new request will not be
+  sent out until responses of previous requests have been received. wrk2
+  recognizes this problem, and approximates potential delays by Omission Control
+  as client side delays. However, such approximation does not
+  not fundamentally resolve the issue of close-loop. As wrk2, requests are still
+  not sent out at their scheduled time, thus do not generate more traffic to the server.
+  Queuing delays because of several outstanding requests are totally ignored.
+
+  Therefore, I fundamentally changed the load generator to be
+  open-loop; requests are sent out according to the schedule no matter what. Any
+  traffic on the server side will be directly refected in the real latency,
+  so we don't have to approximate that like wrk2. Latency reporting is the same as 
+  wrk. 
+
+  Some other features added:
+  1. add -P parameter to print end-to-end latency of every request to files. The
+  number of files is the same as the number of threads.
+  time is fixed, which is 1/(target QPS).
+  2. Ongoing: support varying target QPS to simulate e.g. diurnal patterns,
+  spikes, etc.
 
   **a HTTP benchmarking tool based mostly on wrk**
 
